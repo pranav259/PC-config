@@ -1,3 +1,13 @@
 body{
-  background: linear-gradient(to bottom, #0000aa, #0093ff, #ffffff);
+  /*background: linear-gradient(to bottom, #0000aa, #0093ff, #ffffff);*/
+  width: 100vw;
+  height: 100vh;
+  overflow : hidden;
+}
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
