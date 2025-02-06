@@ -9,8 +9,10 @@ collisionCanvas.width = window.innerWidth;
 collisionCanvas.height = window.innerHeight;
 
 let timeToNextRaven = 0;
-let ravenInterval= 500;
+let ravenInterval= 1000;
 let lastTime = 0;
+
+let gameover = false;
 
 let ravens = [];
 let score = 0;
@@ -52,6 +54,7 @@ class Raven {
       else this.frame++
       this.timeSinceFlap =0;
     }
+    if (this.x < 0 - this.width) gameover = true;
   }
   
   draw(){
@@ -62,8 +65,8 @@ class Raven {
   }
 }
 let explosions = [];
-class explosion{
-  constructor (x,y,size) {
+class Explosion{
+  constructor(x,y,size){
     this.image = new Image();
     this.image.src = 'boom.png';
     this.spriteWidth = 200;
@@ -71,40 +74,43 @@ class explosion{
     this.size  = size;
     this.x = x;
     this.y = y;
-    this.sound = new Audio();
-    this.sound.src= '';
+    this.frame = 0;
     this.markedForDeletion = false;
+    this.timeSinceLastFrame = 0;
+    this.frameInterval = 100;
   }
   update(deltaTime){
     this.timeSinceLastFrame += deltaTime;
     if (this.timeSinceLastFrame > this.frameInterval){
       this.frame++;
+      this.timeSinceLastFrame = 0;
       if (this.frame > 5){
         this.markedForDeletion = true;
       }
     }
   }
   draw(){
-    ctx.drawImage(this.image, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.size, this.size);
+    ctx.drawImage(this.image, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x - this.size/4, this.y, this.size, this.size);
   }
 }
 
 function drawscore() {
   ctx.fillStyle = 'white';
   ctx.fillText('Score: ' + score, 50, 75);
-  
+}
+function drawGameOver() {
+  ctx.fillStyle = '#000000';
+  ctx.fillText('GAME OVER, your score is  ' + score, canvas.width/2, canvas.height/2);
+  ctx.fillAlign = 'center';
 }
 window.addEventListener('click', function(e){
-  console.log(e.x, e.y)
   const detectPixelColor = collisionCtx.getImageData(e.x, e.y,1,1);
-  console.log(detectPixelColor);
   const pc = detectPixelColor.data;
   ravens.forEach(element => {
     if(element.randomColors[0] === pc[0] && element.randomColors[1] === pc[1] && element.randomColors[2] === pc[2]){
       element.markedForDeletion = true;
       score++;
-      explosions.push(new explosion(element.x, element.y, element.width));
-      
+      explosions.push(new Explosion(element.x, element.y, element.width));
     }
   });
 })
@@ -129,8 +135,8 @@ function animate(timestamp) {
   [...ravens, ...explosions].forEach(element => element.draw());
   ravens = ravens.filter((item) => !item.markedForDeletion)
   explosions = explosions.filter((item) => !item.markedForDeletion)
-  requestAnimationFrame(animate);
-
+  if (!gameover) requestAnimationFrame(animate);
+  else drawGameOver();
 }
 animate(0);
 
