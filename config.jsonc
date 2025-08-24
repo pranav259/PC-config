@@ -1,11 +1,12 @@
 {
   "position": "top",
-  "modules-left": ["custom/launcher", "wlr/taskbar"],
+  "modules-left": ["power-profiles-daemon", "backlight", "wlr/taskbar"],
   "modules-center": ["hyprland/workspaces"],
   "modules-right": ["pulseaudio", "bluetooth", "network", "battery", "clock"],
   "clock": {
     "format": "{:%H:%M}",
     "format-alt": "{:%A, %B %d, %Y (%R)}",
+    "timezone": "Asia/Kolkata",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "year",
@@ -30,7 +31,7 @@
   },
   "custom/launcher": {
     "format": "<span color='#CD7F32'>  APPS  </span>",
-    "on-click": "wofi --show drun",
+    "on-click": "rofi -show drun",
   },
   "battery": {
     "states": {
@@ -72,14 +73,14 @@
     // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
     "format": " {status}",
     "format-disabled": "", // an empty format will hide the module
-    "format-connected": " {num_connections} connected",
+    "format-connected": " {num_connections} cn",
     "tooltip-format": "{controller_alias}\t{controller_address}",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
   },
   "network": {
     "format-wifi": "<span size='13000' foreground='#AAFF00'>  </span>{essid}",
-    "format-ethernet": "<span size='13000' foreground='#097969'> </span>LAN ",
+    "format-ethernet": "<span size='13000' foreground='#097969'> </span>TETH ",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "<span size='13000' foreground='#45bd8f'></span>Disconnected",
     "tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
@@ -94,14 +95,13 @@
     "on-click": "pavucontrol",
   },
   "power-profiles-daemon": {
-    "format": "{icon}   {profile}",
+    "format": "{icon}",
     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
     "tooltip": true,
     "format-icons": {
-      "default": "",
-      "performance": "",
-      "balanced": "",
-      "power-saver": "",
+      "performance": "<span foreground='#880808'></span>",
+      "balanced": "<span foreground='#FAF9F6'></span>",
+      "power-saver": "<span foreground='#0096FF'></span>",
     },
   },
 }

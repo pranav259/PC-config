@@ -6,14 +6,23 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+alias dtemp='hyprctl hyprsunset temperature'
+alias cpu='sudo turbostat'
+alias zen='zen-browser'
 alias ls='ls --color=auto'
-alias grep='grep --color=auto'
+alias i='sudo pacman -S'
+alias in='yay -S'
+alias r='sudo pacman -Rns'
+alias re='yay -Rns'
+alias neo='neofetch'
 alias c='clear'
 alias n='nvim'
 alias vim='nvim'
 alias e='exit'
-alias wifi='nmtui'
-alias w='nmtui'
+alias wifi='nmcli dev wifi list'
+alias wifi_rm='nmcli connection delete'
+alias wifi_cn='nmcli device wifi connect --ask'
+alias model='sudo dmidecode -t system | grep Serial'
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -23,6 +32,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
+POWERLEVEL9K_MODE="nerdfont-complete"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -118,20 +129,15 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
-echo -e "\e[1;35m
- █████╗ ██████╗  ██████╗██╗  ██╗      ██╗  ██╗
-██╔══██╗██╔══██╗██╔════╝██║  ██║      ██║  ██║
-███████║██████╔╝██║     ███████║█████╗███████║
-██╔══██║██╔══██╗██║     ██╔══██║╚════╝██╔══██║
-██║  ██║██║  ██║╚██████╗██║  ██║      ██║  ██║
-╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝      ╚═╝  ╚═╝
-                                             
-"
-#blur
-#rubifont
-#ANSI shadow
+neofetch
 
 
 
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source /home/pranav/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/pranav/.dart-cli-completion/zsh-config.zsh ]] && . /home/pranav/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
 

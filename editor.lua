@@ -5,5 +5,5 @@ return {
     event = "BufReadPre",
     opts = {},
   },
-  -- You dont need to set any of these options. These are the default ones. Only
+  { import = "lazyvim.plugins.extras.dap.core" },
 }

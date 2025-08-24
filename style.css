@@ -8,10 +8,11 @@
 }
 
 window#waybar {
-  background: transparent;
-  background-color: transparent;
+  background: #000;
+  background-color: #000;
   color: @overlay0;
   transition-property: background-color;
+  background-color: rgba(0, 0, 0, 0.7);
   transition-duration: 0.1s;
   border-bottom: 1px solid @overlay1;
 }
